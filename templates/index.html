@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Converter for Research Article</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="file"], select, button {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 1rem;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Converter for Research Article</h1>
+        <form method="POST" action="/convert" enctype="multipart/form-data">
+            <div>
+                <label for="file">Select File:</label>
+                <input type="file" name="file" id="file" required>
+            </div>
+            
+            <div>
+                <label for="conversion_type">Conversion Type:</label>
+                <select name="conversion_type" id="conversion_type" required>
+                    <option value="pdf_to_tiff">PDF to TIFF</option>
+                    <option value="image_to_tiff">JPG/PNG to TIFF</option>
+                    <option value="tiff_to_jpeg">TIFF to JPEG</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="dpi">DPI:</label>
+                <select name="dpi" id="dpi" required>
+                    {% for dpi in [300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200] %}
+                    <option value="{{ dpi }}">{{ dpi }} DPI</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <button type="submit">Convert</button>
+        </form>
+        {% if message %}
+        <div class="message">{{ message }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
